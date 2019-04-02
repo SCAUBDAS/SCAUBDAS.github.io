@@ -18,9 +18,9 @@
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="GitHub绑定自己的域名" />
+    <meta property="og:title" content="GitHub绑定自己的域名" />
+    <meta property="twitter:title" content="GitHub绑定自己的域名" />
     
 
     
@@ -37,9 +37,9 @@
     <meta name="keyword"  content="SCAUBDAS, SCAUBDAS的博客, SCAUBDAS Blog, 博客, 互联网, Web, 大数据">
     <link rel="shortcut icon" href="/img/logo.jpg">
 
-    <title>Spark-SCAUBDAS的博客 | SCAUBDAS Blog</title>
+    <title>GitHub绑定自己的域名-SCAUBDAS的博客 | SCAUBDAS Blog</title>
 
-    <link rel="canonical" href="/tags/spark/">
+    <link rel="canonical" href="/2019/04/02/GitHubDominname/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -154,14 +154,35 @@
 
 
 
-<header class="intro-header" style="background-image: url('/img/home-bg.png')">
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://raw.githubusercontent.com/CTubby/images/master/images-bg/bg-2019-03.png')
+    }
+</style>
+<header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>SCAUBDAS Blog </h1>
-                    
-		    <span class="subheading">路漫漫其修远兮,吾将上下而求索。</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/web" title="Web">
+                            Web
+                        </a>
+                        
+                    </div>
+                    <h1>GitHub绑定自己的域名</h1>
+                    <h2 class="subheading">GitHub博客学习</h2>
+                    <span class="meta">
+			Posted by 
+			
+			    Tubby
+			 
+			on 
+			Tuesday, April 2, 2019
+                        
+                    </span>
                 </div>
             </div>
         </div>
@@ -170,124 +191,100 @@
 
 
 
-  
-<div class="container">
-    <div class="row">
-        
-        
-   	    <div class="
-            col-lg-8 col-lg-offset-1
-            col-md-8 col-md-offset-1
-            col-sm-12
-            col-xs-12
-            post-container
-        ">
-            
 
-<div class="post-preview">
-    <a href="https://sicau-bdas.top/2019/03/22/sparkadvanced/">
-        <h2 class="post-title">
-            Spark编程进阶
-        </h2>
-	
-        <h3 class="post-subtitle">
-            Spark学习
-        </h3>
-	
-        <div class="post-content-preview">
-	
-            Spark编程进阶 累加器 python中使用累加器范例 python中累加空行 - 累加器与容错性。 - 自定义累加器 广播变量 简介 python中使用广播
-       
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by Tubby Friday, March 22, 2019
-    </p>
-</div>
-<hr>
-
+<article>
+    <div class="container">
+        <div class="row">
 
             
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-
-
-       	</div>
-        
-
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-    
-    <section>
-        <hr class="hidden-sm hidden-xs">
-        <h5>FEATURED TAGS</h5>
-        <div class="tags">
-             
-            
                 
-                    <a href="/tags/java" title="JAVA">
-                        JAVA
-                    </a>
+                <header>
+                    <h2>TOC</h2>
+                </header>
                 
-            
                 
-            
-                
-            
-                
-            
-                
-            
-        </div>
-    </section>
-    
+                <p>第一步：
+1. 新建一个GitHub仓库，取名为your-github_name.github.io
+2. 新建一个文件，取名为CNAME,填写内容为域名。不需要添加http或https。</p>
 
-    
-	
-    <section class="visible-md visible-lg">
-	<hr><h5><a href="/top/about">ABOUT ME</a></h5>
-        <div class="short-about">
-            
-            
-           
-           <ul class="list-inline"> 
-               
-               
-               
-               
-               
-               
-               
-               <li>
-                   <a target="_blank" href="https://github.com/SCAUBDAS">
-                       <span class="fa-stack fa-lg">
-                           <i class="fa fa-circle fa-stack-2x"></i>
-                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                       </span>
-                   </a>
-               </li>
-               
-               
-               
+<p>第二步：
+1. 在本地cmd中，ping第一步中新建的仓库名称。会返回一个ip地址，记录下该地址。</p>
+
+<p>第三步：
+1. 打开购买的云服务器，因为我购买的阿里云，所有在这上面进行操作演示。
+2. 在控制台中打开域名管理。</p>
+
+<p><img src="http://pp0miv3mb.bkt.clouddn.com/20190402203347.png" alt="域名管理" /></p>
+
+<ol>
+<li>找到解析。添加如下信息：<br>
+A：对应cmd中ping的地址。<br>
+CNAME：对应新建的GitHub仓库名。</li>
+</ol>
+
+<p><img src="http://pp0miv3mb.bkt.clouddn.com/20190402203724.png" alt="域名解析内容" /></p>
+
+<p>完成上述步骤后，配置完成。<br>
+<a href="https://www.cnblogs.com/start-fxw/p/7144923.html">参考网址</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/04/01/java_diffrence/" data-toggle="tooltip" data-placement="top" title="Java中组合、继承和代理的不同之处">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
                 </ul>
+
             </div>
-    </section>
-	
-    
-    
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-    
-    
-</div>
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/java" title="JAVA">
+                            JAVA
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
 
-	</div>
-</div>
-
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
 
 
 
