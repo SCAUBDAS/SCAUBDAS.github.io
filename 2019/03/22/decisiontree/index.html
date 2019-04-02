@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Tubby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://CTubby.github.io//img/home-bg.png">
+    <meta property="twitter:image" content="https://CTubby.github.io//img/home-bg.png" />
+    
+
+    
+    <meta name="title" content="基于信息熵的决策树构建" />
+    <meta property="og:title" content="基于信息熵的决策树构建" />
+    <meta property="twitter:title" content="基于信息熵的决策树构建" />
+    
+
+    
+    <meta name="description" content="Tubby，程序员 数据爱好者 | 这里是 Tubby 的博客, 希冀在数据的道路上结伴同行。">
+    <meta property="og:description" content="Tubby，程序员 数据爱好者 | 这里是 Tubby 的博客, 希冀在数据的道路上结伴同行。" />
+    <meta property="twitter:description" content="Tubby，程序员 数据爱好者 | 这里是 Tubby 的博客, 希冀在数据的道路上结伴同行。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Tubby, Tubby的网络日志, Tubby的博客, Tubby Blog, 博客, 个人网站, 互联网, Web, 大数据">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>基于信息熵的决策树构建-Tubby的博客 | Tubby Blog</title>
+
+    <link rel="canonical" href="/2019/03/22/decisiontree/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Tubby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">Tech</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://raw.githubusercontent.com/CTubby/images/master/images-bg/bg-2019-03.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
+                            机器学习
+                        </a>
+                        
+                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                    </div>
+                    <h1>基于信息熵的决策树构建</h1>
+                    <h2 class="subheading">构建并绘制决策树</h2>
+                    <span class="meta">
+			Posted by 
+			
+			    Tubby
+			 
+			on 
+			Friday, March 22, 2019
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#决策树">决策树</a>
+<ul>
+<li><a href="#决策树函数组成部分">决策树函数组成部分</a></li>
+<li><a href="#递归构造决策树">递归构造决策树</a></li>
+<li><a href="#使用matplotlib绘制决策树">使用Matplotlib绘制决策树</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h1 id="决策树">决策树</h1>
+
+<p>本章构建的决策树算法能够读取数据集合，构建决策树。
+决策树的一个重要任务是为了数据中心所蕴含的知识信息，因此决策树可以使用不熟悉的数据集合，并从中提取出一系列规则。在这些机器根据数据创建规则时，就是机器学习的过程。专家系统中经常使用决策树，而且决策树给出结果往往可以匹敌在当前领域具有几十年工作经验的人类专家。</p>
+
+<p>决策树示例：</p>
+
+<p><img src="https://raw.githubusercontent.com/CTubby/images/master/markdown/SparkMLlibDecisionTree/1.png" alt="决策树示例" /></p>
+
+<h2 id="决策树函数组成部分">决策树函数组成部分</h2>
+
+<table>
+<thead>
+<tr>
+<th>优缺点</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>优点</td>
+<td align="left">计算复杂度不高、输出结果易于理解，对中间值的缺失不敏感，可以处理不相关特征数据</td>
+</tr>
+
+<tr>
+<td>缺点</td>
+<td align="left">可能会产生过度匹配问题</td>
+</tr>
+
+<tr>
+<td>适用数据类型</td>
+<td align="left">数值型和标称型</td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li><p>寻找最佳划分特征值</p>
+
+<p>构造决策树时，需要考虑的第一个问题：当前数据集中哪个特征在划分数据分类时起到决定作用。<br>
+为了找到这个特征，需要评估每一个特征，完成评测后，原始数据就会被划分为几个数据子集。然后遍历每个数据子集，若是都为同类，则该数据集结束分类，否则在该数据集中重新执行评估，二次分类。依次执行，直到数据被划分完毕或特征使用完毕时停止。</p>
+
+<p>创建分支的伪代码函数createBranch如下图所示：</p>
+
+<pre><code>检测数据集中的每个子项是否属于同一分类：
+if so return 类标签：
+else:
+    寻找划分数据集的最好特征
+    划分数据集
+    创建分支节点
+        for每个划分的子集
+            调用函数createBranch并增加返回结果到分支节点中
+    return 分支节点
+</code></pre></li>
+
+<li><p>信息增益</p>
+
+<p>划分数据集最大的原则是：将无序的数据变得更加有序。本章选取信息论度量信息。<br>
+在划分数据集之前之后信息发生的变化称为信息增益，知道如何计算信息增益，我们就可以计算每个特征值划分数据集获得的信息增益，获得信息增益最好的特征就是最好的选择。</p>
+
+<p>1).计算给定数据集的香农熵
+计算熵的公式：
+$$
+H = -\sum<em>{i=1}^{n}P(x</em>{i})log<em>{2}^{P(x</em>{i})}
+$$</p>
+
+<pre><code class="language-python">from math import log
+
+def calcShannonEnt(dataSet):
+    numEntries = len(dataSet)  # 获取数据集中实例总数
+    labelCounts = {}  # 创建数据字典，键值为数据集最后一列的值，即标签 
+    for featVec in dataSet:
+        currentLabel = featVec[-1]  # 获取标签
+        if currentLabel not in labelCounts.keys(): # 如果标签不在字典中，则将其添加进去
+            labelCounts[currentLabel] =0
+        labelCounts[currentLabel] += 1  # 如果标签存在，则对应的数值加1
+    shannonEnt = 0.0
+    for LabelKey in labelCounts:
+        prob = float(labelCounts[LabelKey]) / numEntries  # 计算数值进入该分类的概率
+        shannonEnt -= prob * log(prob, 2)  # 计算熵
+    return shannonEnt
+</code></pre>
+
+<p>示例数据：</p>
+
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">不浮出水面</th>
+<th align="left">是否有脚蹼</th>
+<th align="left">属于鱼类</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left">是</td>
+</tr>
+
+<tr>
+<td align="left">2</td>
+<td align="left">是</td>
+<td align="left">是</td>
+<td align="left">是</td>
+</tr>
+
+<tr>
+<td align="left">3</td>
+<td align="left">是</td>
+<td align="left">否</td>
+<td align="left">否</td>
+</tr>
+
+<tr>
+<td align="left">4</td>
+<td align="left">否</td>
+<td align="left">是</td>
+<td align="left">否</td>
+</tr>
+
+<tr>
+<td align="left">5</td>
+<td align="left">否</td>
+<td align="left">是</td>
+<td align="left">否</td>
+</tr>
+</tbody>
+</table>
+
+<p>对应数据集：</p>
+
+<pre><code>dataSet = [
+    [1, 1, 'yes'],
+    [1, 1, 'yes'],
+    [1, 0, 'no'],
+    [0, 1, 'no'],
+    [0, 1, 'no']
+]
+</code></pre></li>
+
+<li><p>划分数据集
+划分数据集，度量划分数据集的熵，以便判断当前是否正确划分了数据集。
+通过对每个特征划分数据集的结果度量熵，判断哪个特征划分数据集是最好的划分方式。</p>
+
+<pre><code class="language-python">def splitDateSet(dataSet, axis, value):  # dataSet：待划分的数据集；axis：划分数据的特征索引；value：对应划分的特征值
+    retDateSet = []
+    for featVec in dataSet:
+        if featVec[axis] == value:
+            reduceFeatVec = featVec[:axis]
+            reduceFeatVec.extend(featVec[axis+1:])
+            retDataSet.append(reduceFeatVec)
+    return retDateSet
+</code></pre></li>
+
+<li><p>选择最好的数据集划分方式
+通过该函数选取特征，划分数据集，计算出最好的划分数据集的特征。</p>
+
+<pre><code class="language-python">def chooseBestFeatureToSplit(dataSet):
+    numFeatures = len(dataSet[0]) -1
+    bestEntropy = calcShannonEnt(dataSet)  # 计算原始香农熵
+    bestInfoGain = 0.0  # 信息增益
+    bestFeature = -1  # 原始特征值索引
+    for i in range(numFeatures):
+        featList = [example[i] for example in dataSet]  #创建第i个特征值组成的列表
+        uniqueVals = set(featList ) #创建特征值集合，去除重复元素
+        newEntropy = 0.0
+        for value in uniqueVals:  # 依次读取特征值，计算香农熵
+            subDataSet = splitDataSet(dataSet, i, value)
+            prob = len(subDataSet)/float(len(dataSet))
+            newEntropy += prob * calcShannonEnt(subDataSet)
+        infoGain = baseEntropy - newEntropy  #计算信息增益
+        if infoGain &gt; bestInfoGain:  # 如果信息增益变大，则代表该特征值更好
+            bestInfoGain = infoGain
+            bestFeature = i
+    return bestFeature  # 返回最佳特征值的索引
+</code></pre>
+
+<h2 id="递归构造决策树">递归构造决策树</h2>
+
+<p>递归构造决策树原理：根据数据集选择最好的特征划分数据集，由于特征可能多于两个，故分支节点可能有多个。第一次划分后，子数据集中，可能还需要进行划分，故需要在子数据集中，递归调用决策树进行分类。</p></li>
+
+<li><p>构建叶子节点分类函数
+在本章构建决策树时，选择最佳特征值后，会删除特征。假设所有的特征使用完毕后，在某些叶子结点中，并不是都是一类，此时需要使用多数表决来分类。
+下述函数将对叶子结点中所有的数据进行分类统计，最后选出数量最多的类别并返回其标签作为叶子结点分类标签。</p>
+
+<pre><code class="language-python">def majorituCnt(classList):
+    classCount = {}
+    for vote in classList:
+        if vote not in classCount.keys():
+            classCount[vote] = 0
+        classCount[vote] += 1
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    return sortedClassCountp[0][0]
+</code></pre></li>
+
+<li><p>构建决策树</p>
+
+<pre><code class="language-python">def createTree(data, labels):
+    classList = [example[i] for example in dataSet]
+    if classList.count(classList[0]) == len(classList):  # 当类别完全相同时停止继续划分
+        return classList[0]
+    if len(dataSet[0]) == 1:  # 遍历完所有特征时返回出现次数最多
+        return majorityCnt(classList)
+    bestFeat = chooseBestFeatureToSplit(dataSet)  # 选取最佳划分特征
+    bestFeatLabel = labels[bestFeat]
+    myTree = {bestFeatLabel:{}}  # 构建节点
+    del(labels[bestFeat])
+    featValues = [example[bestFeat] for example in dataSet]
+    uniqueVals = set(featValues)
+    for value in uniqueVals:
+        subLabels = labels[:]  # 将类标签复制，防止使用过程中类标签被改变。
+        myTree[bestFFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value), subLabels)  # 递归调用函数
+    return myTree
+</code></pre></li>
+</ol>
+
+<h2 id="使用matplotlib绘制决策树">使用Matplotlib绘制决策树</h2>
+
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+from pylab import *
+mpl.rcParams['font.sans-serif'] = ['SimHei']
+
+decisionNode = dict(boxstyle='sawtooth', fc='0.8')
+leafNode = dict(boxstyle='round4', fc='0.8')
+arrow_args = dict(arrowstyle='&lt;-')
+
+
+def getNumLeafs(MyTree):  # 获取叶子节点数
+    NumLeafs = 0
+    firstStr = list(MyTree.keys())[0]
+    secondDict = MyTree[firstStr]
+    for TreeKey in secondDict.keys():
+        if isinstance(secondDict[TreeKey], dict):
+            NumLeafs += getNumLeafs(secondDict[TreeKey])
+        else:
+            NumLeafs += 1
+    return NumLeafs
+
+
+def getTreeDepth(MyTree):  # 获取树深度
+    maxDepth = 0
+    thisDepth = 0
+    firstStr = list(MyTree.keys())[0]
+    secondDict = MyTree[firstStr]
+    for TreeKey in secondDict.keys():
+        if isinstance(secondDict[TreeKey], dict):
+            thisDepth = 1 + getTreeDepth(secondDict[TreeKey])
+        else:
+            thisDepth += 1
+        if thisDepth &gt; maxDepth:
+            maxDepth = thisDepth
+    return maxDepth
+
+
+def plotMidText(cntrPt, parentPt, txtString):
+    xMid = (parentPt[0]-cntrPt[0])/2.0 + cntrPt[0]
+    yMid = (parentPt[1]-cntrPt[1])/2.0 + cntrPt[1]
+    createPlot.axl.text(xMid, yMid, txtString)
+
+
+def plotTree(MyTree, parentPt, nodeTxt):
+    numLeafs = getNumLeafs(MyTree)
+    depth = getTreeDepth(MyTree)
+    firstStr = list(MyTree.keys())[0]
+    cntrPt = (plotTree.x0ff + (1.0 + float(numLeafs))/2.0/plotTree.totalW, plotTree.y0ff)
+    plotMidText(cntrPt, parentPt, nodeTxt)
+    plotNode(firstStr, cntrPt, parentPt, decisionNode)
+    secondDict = MyTree[firstStr]
+    plotTree.y0ff = plotTree.y0ff - 1.0/plotTree.totalD
+    for TreeKey in secondDict.keys():
+        if isinstance(secondDict[TreeKey], dict):
+            plotTree(secondDict[TreeKey], cntrPt, str(TreeKey))
+        else:
+            plotTree.x0ff = plotTree.x0ff + 1.0/plotTree.totalW
+            plotNode(secondDict[TreeKey], (plotTree.x0ff, plotTree.y0ff), cntrPt, leafNode)
+            plotMidText((plotTree.x0ff, plotTree.y0ff), cntrPt, str(TreeKey))
+    plotTree.y0ff = plotTree.y0ff + 1.0/plotTree.totalD
+
+
+def plotNode(nodeTxt, centerPt, parentPt, nodeType):
+    createPlot.axl.annotate(nodeTxt, xy=parentPt, xycoords='axes fraction', xytext=centerPt, textcoords='axes fraction', va='center', ha='center', bbox=nodeType, arrowprops=arrow_args)
+
+
+def createPlot(inTree):
+    fig = plt.figure(1, facecolor='white')
+    fig.clf()
+    anprops = dict(xticks=[], yticks=[])
+    createPlot.axl = plt.subplot(111, frameon=False, **anprops)
+    plotTree.totalW = float(getNumLeafs(inTree))
+    plotTree.totalD = float(getTreeDepth(inTree))
+    plotTree.x0ff = -0.5/plotTree.totalW
+    plotTree.y0ff = 1.0
+    plotTree(inTree, (0.5, 1.0), '')
+    plt.show()
+
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/03/22/sparkadvanced/" data-toggle="tooltip" data-placement="top" title="Spark编程进阶">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/spark" title="Spark">
+                            Spark
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
+                            机器学习
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:tubby.xue@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    <li>
+                        <a target="_blank" href="/img/wechat_qrcode.jpg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/CTubby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Tubby Blog 2019
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-136755871-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>

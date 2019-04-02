@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Tubby Blog</title>
+    <link>https://CTubby.github.io/tags/</link>
+    <description>Recent content in Tags on Tubby Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 24 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://CTubby.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spark</title>
+      <link>https://CTubby.github.io/tags/spark/</link>
+      <pubDate>Sun, 24 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://CTubby.github.io/tags/spark/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>机器学习</title>
+      <link>https://CTubby.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Sun, 24 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://CTubby.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>算法</title>
+      <link>https://CTubby.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 24 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://CTubby.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

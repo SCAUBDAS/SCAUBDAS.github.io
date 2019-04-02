@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Tubby Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://CTubby.github.io//img/home-bg.png">
+    <meta property="twitter:image" content="https://CTubby.github.io//img/home-bg.png" />
+    
+
+    
+    <meta name="title" content="Spark编程进阶" />
+    <meta property="og:title" content="Spark编程进阶" />
+    <meta property="twitter:title" content="Spark编程进阶" />
+    
+
+    
+    <meta name="description" content="Tubby，程序员 数据爱好者 | 这里是 Tubby 的博客, 希冀在数据的道路上结伴同行。">
+    <meta property="og:description" content="Tubby，程序员 数据爱好者 | 这里是 Tubby 的博客, 希冀在数据的道路上结伴同行。" />
+    <meta property="twitter:description" content="Tubby，程序员 数据爱好者 | 这里是 Tubby 的博客, 希冀在数据的道路上结伴同行。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Tubby, Tubby的网络日志, Tubby的博客, Tubby Blog, 博客, 个人网站, 互联网, Web, 大数据">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Spark编程进阶-Tubby的博客 | Tubby Blog</title>
+
+    <link rel="canonical" href="/2019/03/22/sparkadvanced/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Tubby Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">Tech</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://raw.githubusercontent.com/CTubby/images/master/images-bg/bg-2019-03.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/spark" title="Spark">
+                            Spark
+                        </a>
+                        
+                    </div>
+                    <h1>Spark编程进阶</h1>
+                    <h2 class="subheading">Spark学习</h2>
+                    <span class="meta">
+			Posted by 
+			
+			    Tubby
+			 
+			on 
+			Friday, March 22, 2019
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#spark编程进阶">Spark编程进阶</a>
+<ul>
+<li><a href="#累加器">累加器</a>
+<ul>
+<li><a href="#python中使用累加器范例">python中使用累加器范例</a></li>
+<li><a href="#累加器与容错性">累加器与容错性。</a></li>
+<li><a href="#自定义累加器">自定义累加器</a></li>
+</ul></li>
+<li><a href="#广播变量">广播变量</a>
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#python中使用广播变量">python中使用广播变量</a></li>
+<li><a href="#广播的优化">广播的优化</a></li>
+</ul></li>
+<li><a href="#基于分区进行操作">基于分区进行操作</a>
+<ul>
+<li><a href="#简介-1">简介</a></li>
+<li><a href="#python基于分区操作">Python基于分区操作</a></li>
+</ul></li>
+<li><a href="#数值rdd的操作">数值RDD的操作</a>
+<ul>
+<li><a href="#简介-2">简介</a></li>
+<li><a href="#数值操作">数值操作</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+<ul>
+<li><a href="#spark编程进阶">Spark编程进阶</a>
+
+<ul>
+<li><a href="#累加器">累加器</a>
+
+<ul>
+<li><a href="#python中使用累加器范例">python中使用累加器范例</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#python中累加空行">python中累加空行</a>
+    - <a href="#累加器与容错性">累加器与容错性。</a>
+    - <a href="#自定义累加器">自定义累加器</a>
+
+<ul>
+<li><a href="#广播变量">广播变量</a>
+
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#python中使用广播变量">python中使用广播变量</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#在python中使用广播变量">在Python中使用广播变量</a>
+    - <a href="#广播的优化">广播的优化</a>
+
+<ul>
+<li><a href="#基于分区进行操作">基于分区进行操作</a>
+
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#python基于分区操作">Python基于分区操作</a></li>
+</ul></li>
+<li><a href="#数值rdd的操作">数值RDD的操作</a>
+
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#数值操作">数值操作</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- /TOC -->
+
+<h1 id="spark编程进阶">Spark编程进阶</h1>
+
+<h2 id="累加器">累加器</h2>
+
+<h3 id="python中使用累加器范例">python中使用累加器范例</h3>
+
+<pre><code class="language-python"># python中累加空行
+file = sc.textFile(inputfile)
+blankLines = sc.accumulator(0)  # 创建Accumulator(Int)
+
+def extractCallSigns(line):
+    global blankLines
+    if line == &quot;&quot;:
+        blankLines += 1
+    return line.split(' ')
+
+callSigns = file.flatMap(extractCallSigns)
+callSigns.saveAsTextFile(outputPath)
+print('blank Lines : %d' %blankLines.value)
+</code></pre>
+
+<p><strong>实际使用中可以创建多个累加器进行计数</strong></p>
+
+<pre><code class="language-python">validSignCount = sc.Accumulator(0)
+invalidSignCount = sc.Accumulator(0)
+</code></pre>
+
+<h3 id="累加器与容错性">累加器与容错性。</h3>
+
+<h3 id="自定义累加器">自定义累加器</h3>
+
+<h2 id="广播变量">广播变量</h2>
+
+<h3 id="简介">简介</h3>
+
+<p>正常情况中，spark的task会在执行任务时，将变量进行拷贝。当每个task都从主节点拷贝时，程序的通信和内存负担很重。
+使用广播变量后，主节点会将变量拷贝至工作节点，任务从工作节点获得变量，而不用再次拷贝，此时变量被拷贝的次数取决于工作节点的个数。</p>
+
+<h3 id="python中使用广播变量">python中使用广播变量</h3>
+
+<pre><code class="language-python"># 在Python中使用广播变量
+signPrefixes = sc.broadcast(loadCallSignTable())
+
+def processSignCount(sign_count, signPrefixes):
+    country = lookupCountry(sign_count[0], signPrefixes.value)
+    count = sign_count[1]
+    return (country, count)
+
+countryContactCounts = (contactCounts.map(processSignCount).reduceByKey((lambda x, y:x+y)))
+
+countryContactCounts.saveAsTextFile(ooutputPath)
+</code></pre>
+
+<h3 id="广播的优化">广播的优化</h3>
+
+<h2 id="基于分区进行操作">基于分区进行操作</h2>
+
+<h3 id="简介-1">简介</h3>
+
+<p>基于分区对数据进行操作可以让我们避免为每个数据元素进行重复的配置工作。
+Spark提供基于分区的map和foreach。</p>
+
+<h3 id="python基于分区操作">Python基于分区操作</h3>
+
+<pre><code class="language-python">def func(file):
+    pass
+
+def fetchCallSigns(input):
+    return input.mapPartitions(lambda x: func(file=x))  #使用mapPartitons执行对分区的操作
+
+do_func = fetchCallSigns(inputfile)
+</code></pre>
+
+<p>常见分区操作函数</p>
+
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>调用所提供的</th>
+<th>返回的</th>
+<th>对于RDD[T]的函数签名</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>mapPartitions()</td>
+<td>该分区中元素的迭代器</td>
+<td>返回的元素的迭代器</td>
+<td>f:(Iter ator[T]——&gt;Iterator[U])</td>
+</tr>
+
+<tr>
+<td>mapPartitionsWithIndex()</td>
+<td>分区序号，以及每个分区中的元素的迭代器</td>
+<td>返回的元素的迭代器</td>
+<td>f:(Int, Iterator[T]——&gt;Iterator[U])</td>
+</tr>
+
+<tr>
+<td>forceachPartitions()</td>
+<td>元素迭代器</td>
+<td>无</td>
+<td>f:(Iterator[T]——&gt;Unit)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="数值rdd的操作">数值RDD的操作</h2>
+
+<h3 id="简介-2">简介</h3>
+
+<p>Spark对包含数据的RDD提供了一些描述性的操作。
+Spark的数据操作是通过流式算法实现的，允许以每次一个元素的方式构建模型。这些统计数据会在调用stats()时通过一次遍历计算出来，并以StatsCounter对象返回。</p>
+
+<h3 id="数值操作">数值操作</h3>
+
+<ol>
+<li><strong>StatsCounter中可用的汇总统计数据</strong></li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>含义</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>count()</td>
+<td>RDD中的元素的个数</td>
+</tr>
+
+<tr>
+<td>mean()</td>
+<td>元素的平均值</td>
+</tr>
+
+<tr>
+<td>sum()</td>
+<td>总和</td>
+</tr>
+
+<tr>
+<td>max()</td>
+<td>最大值</td>
+</tr>
+
+<tr>
+<td>min()</td>
+<td>最小值</td>
+</tr>
+
+<tr>
+<td>variance()</td>
+<td>元素的方差</td>
+</tr>
+
+<tr>
+<td>sampleVariance()</td>
+<td>从采样中计算出的方差</td>
+</tr>
+
+<tr>
+<td>stdev()</td>
+<td>标准差</td>
+</tr>
+
+<tr>
+<td>sampleStdev()</td>
+<td>采用的标准差</td>
+</tr>
+</tbody>
+</table>
+
+<ol>
+<li>Python中使用数据操作</li>
+</ol>
+
+<pre><code class="language-python">distanceNumerics = distances.map(lambda s: float(s))
+stats = distanceNumerics.stats()
+stdev = stats.stdev()  # 计算标准差
+mean = stats.mean()
+resonableDistances = distanceNumerics.filter(lambda x: math.fabs(x - mean)&lt;3 * stdev)
+print(resonableDistances.collet())
+</code></pre>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/03/22/decisiontree/" data-toggle="tooltip" data-placement="top" title="基于信息熵的决策树构建">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/03/24/spark_decisiontree/" data-toggle="tooltip" data-placement="top" title="SparkMLlib之决策树二元分类">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/spark" title="Spark">
+                            Spark
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
+                            机器学习
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:tubby.xue@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    <li>
+                        <a target="_blank" href="/img/wechat_qrcode.jpg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/CTubby">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Tubby Blog 2019
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-136755871-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
