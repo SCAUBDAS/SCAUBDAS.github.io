@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tops on Tubby Blog</title>
-    <link>https://CTubby.github.io/top/</link>
-    <description>Recent content in Tops on Tubby Blog</description>
+    <title>Tops on SCAUBDAS Blog</title>
+    <link>https://sicau-bdas.top/top/</link>
+    <description>Recent content in Tops on SCAUBDAS Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://CTubby.github.io/top/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sicau-bdas.top/top/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>https://CTubby.github.io/top/about/</link>
+      <link>https://sicau-bdas.top/top/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://CTubby.github.io/top/about/</guid>
-      <description> Welcome To Tubby Blog. </description>
+      <guid>https://sicau-bdas.top/top/about/</guid>
+      <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://CTubby.github.io/top/books/</link>
+      <link>https://sicau-bdas.top/top/books/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://CTubby.github.io/top/books/</guid>
-      <description>Machine learning学习笔记 Coursera 在线课程 Machine learning 笔记 讲师: 吴恩达(Andrew Ng)  课程地址：https://www.coursera.org/learn/machine-learning</description>
+      <guid>https://sicau-bdas.top/top/books/</guid>
+      <description></description>
     </item>
     
   </channel>

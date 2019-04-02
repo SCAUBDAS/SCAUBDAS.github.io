@@ -1,40 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Tubby Blog</title>
-    <link>https://CTubby.github.io/post/</link>
-    <description>Recent content in Posts on Tubby Blog</description>
+    <title>Posts on SCAUBDAS Blog</title>
+    <link>https://sicau-bdas.top/post/</link>
+    <description>Recent content in Posts on SCAUBDAS Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://CTubby.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sicau-bdas.top/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Java中组合、继承和代理的不同之处</title>
+      <link>https://sicau-bdas.top/2019/04/01/java_diffrence/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://sicau-bdas.top/2019/04/01/java_diffrence/</guid>
+      <description>最近在看《Java编程思想》这一本书，看到第７章复用类，学习的时候查了查网上的资料，感觉都说得不是很清楚，就来说说我的看法。 复用类即实现代码</description>
+    </item>
+    
+    <item>
+      <title>云服务器Ubuntu系统搭建Hadoop集群</title>
+      <link>https://sicau-bdas.top/2019/04/01/build_hadoop/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://sicau-bdas.top/2019/04/01/build_hadoop/</guid>
+      <description>一、节点环境介绍 服务器：2台腾讯云服务器，一台百度云服务器 操作系统： Ubuntu 16.04.4 LTS Hadoop版本：hadoop-2.7.6 Java版本：1.8.0</description>
+    </item>
+    
+    <item>
       <title>SparkMLlib之决策树二元分类</title>
-      <link>https://CTubby.github.io/2019/03/24/spark_decisiontree/</link>
+      <link>https://sicau-bdas.top/2019/03/24/spark_decisiontree/</link>
       <pubDate>Sun, 24 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://CTubby.github.io/2019/03/24/spark_decisiontree/</guid>
+      <guid>https://sicau-bdas.top/2019/03/24/spark_decisiontree/</guid>
       <description>决策树介绍 实例分析</description>
     </item>
     
     <item>
       <title>Spark编程进阶</title>
-      <link>https://CTubby.github.io/2019/03/22/sparkadvanced/</link>
+      <link>https://sicau-bdas.top/2019/03/22/sparkadvanced/</link>
       <pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://CTubby.github.io/2019/03/22/sparkadvanced/</guid>
+      <guid>https://sicau-bdas.top/2019/03/22/sparkadvanced/</guid>
       <description>Spark编程进阶 累加器 python中使用累加器范例 python中累加空行 - 累加器与容错性。 - 自定义累加器 广播变量 简介 python中使用广播</description>
     </item>
     
     <item>
       <title>基于信息熵的决策树构建</title>
-      <link>https://CTubby.github.io/2019/03/22/decisiontree/</link>
+      <link>https://sicau-bdas.top/2019/03/22/decisiontree/</link>
       <pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://CTubby.github.io/2019/03/22/decisiontree/</guid>
+      <guid>https://sicau-bdas.top/2019/03/22/decisiontree/</guid>
       <description>决策树 本章构建的决策树算法能够读取数据集合，构建决策树。 决策树的一个重要任务是为了数据中心所蕴含的知识信息，因此决策树可以使用不熟悉的数据集</description>
     </item>
     

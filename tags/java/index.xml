@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JAVA on SCAUBDAS Blog</title>
+    <link>https://sicau-bdas.top/tags/java/</link>
+    <description>Recent content in JAVA on SCAUBDAS Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://sicau-bdas.top/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java中组合、继承和代理的不同之处</title>
+      <link>https://sicau-bdas.top/2019/04/01/java_diffrence/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://sicau-bdas.top/2019/04/01/java_diffrence/</guid>
+      <description>最近在看《Java编程思想》这一本书，看到第７章复用类，学习的时候查了查网上的资料，感觉都说得不是很清楚，就来说说我的看法。 复用类即实现代码</description>
+    </item>
+    
+    <item>
+      <title>云服务器Ubuntu系统搭建Hadoop集群</title>
+      <link>https://sicau-bdas.top/2019/04/01/build_hadoop/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://sicau-bdas.top/2019/04/01/build_hadoop/</guid>
+      <description>一、节点环境介绍 服务器：2台腾讯云服务器，一台百度云服务器 操作系统： Ubuntu 16.04.4 LTS Hadoop版本：hadoop-2.7.6 Java版本：1.8.0</description>
+    </item>
+    
+  </channel>
+</rss>

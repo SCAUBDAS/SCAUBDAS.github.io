@@ -18,9 +18,9 @@
     
 
     
-    <meta name="title" content="SparkMLlib之决策树二元分类" />
-    <meta property="og:title" content="SparkMLlib之决策树二元分类" />
-    <meta property="twitter:title" content="SparkMLlib之决策树二元分类" />
+    <meta name="title" content="云服务器Ubuntu系统搭建Hadoop集群" />
+    <meta property="og:title" content="云服务器Ubuntu系统搭建Hadoop集群" />
+    <meta property="twitter:title" content="云服务器Ubuntu系统搭建Hadoop集群" />
     
 
     
@@ -37,9 +37,9 @@
     <meta name="keyword"  content="SCAUBDAS, SCAUBDAS的博客, SCAUBDAS Blog, 博客, 互联网, Web, 大数据">
     <link rel="shortcut icon" href="/img/logo.jpg">
 
-    <title>SparkMLlib之决策树二元分类-SCAUBDAS的博客 | SCAUBDAS Blog</title>
+    <title>云服务器Ubuntu系统搭建Hadoop集群-SCAUBDAS的博客 | SCAUBDAS Blog</title>
 
-    <link rel="canonical" href="/2019/03/24/spark_decisiontree/">
+    <link rel="canonical" href="/2019/04/01/build_hadoop/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -163,28 +163,20 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
-                            机器学习
-                        </a>
-                        
-                        <a class="tag" href="/tags/%E7%AE%97%E6%B3%95" title="算法">
-                            算法
-                        </a>
-                        
-                        <a class="tag" href="/tags/spark" title="Spark">
-                            Spark
+                        <a class="tag" href="/tags/java" title="JAVA">
+                            JAVA
                         </a>
                         
                     </div>
-                    <h1>SparkMLlib之决策树二元分类</h1>
-                    <h2 class="subheading">Spark环境下运行决策树</h2>
+                    <h1>云服务器Ubuntu系统搭建Hadoop集群</h1>
+                    <h2 class="subheading">搭建Hadoop系统</h2>
                     <span class="meta">
 			Posted by 
 			
-			    Tubby
+			    王巍杰
 			 
 			on 
-			Sunday, March 24, 2019
+			Monday, April 1, 2019
                         
                     </span>
                 </div>
@@ -214,17 +206,270 @@
 <ul>
 <li>
 <ul>
-<li><a href="#决策树介绍">决策树介绍</a></li>
-<li><a href="#实例分析">实例分析</a></li>
+<li><a href="#一-节点环境介绍">一、节点环境介绍</a></li>
+<li><a href="#二-前期准备">二、前期准备</a></li>
+<li><a href="#三-jdk和hadoop安装配置">三、JDK和Hadoop安装配置</a></li>
 </ul></li>
 </ul>
 </nav>
                 
                 
 
-<h2 id="决策树介绍">决策树介绍</h2>
+<h2 id="一-节点环境介绍">一、节点环境介绍</h2>
 
-<h2 id="实例分析">实例分析</h2>
+<p><strong>服务器</strong>：2台腾讯云服务器，一台百度云服务器
+<strong>操作系统</strong>： Ubuntu 16.04.4 LTS
+<strong>Hadoop版本</strong>：hadoop-2.7.6
+<strong>Java版本</strong>：1.8.0_191</p>
+
+<h2 id="二-前期准备">二、前期准备</h2>
+
+<ol>
+<li><strong>为了更好的在Shell中区分三台主机，修改其显示的主机名，执行如下命令</strong></li>
+</ol>
+
+<pre><code>sudo vim /etc/hostname
+</code></pre>
+
+<p>在master的/etc/hostname中添加如下配置：</p>
+
+<pre><code>master
+</code></pre>
+
+<p>slave1的/etc/hostname中添加如下配置：</p>
+
+<pre><code>slave1
+</code></pre>
+
+<p>同理slave2</p>
+
+<pre><code>slave2
+</code></pre>
+
+<p>重启三台电脑，发现机器名已经变化
+<img src="https://img-blog.csdnimg.cn/20190224145521794.png" alt="在这里插入图片描述" />
+ 2. 在三台机器的/etc/hosts文件中,添加如下配置</p>
+
+<pre><code>ip1 master
+ip2 slave1
+ip3 slave2
+</code></pre>
+
+<p>注意：如果是在master上操作的话ip1 必须是master 的内网IP 同理slaves上也是一样，其他的要用外网IP。</p>
+
+<p>查看内网地址</p>
+
+<pre><code>ifconfig
+</code></pre>
+
+<p><img src="https://img-blog.csdnimg.cn/20190224151054741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2MDgwMA==,size_16,color_FFFFFF,t_70" alt="" /></p>
+
+<ol>
+<li><p>建立Hadoop运行账号</p>
+
+<pre><code>sudo adduser hadoop
+</code></pre>
+
+<p>按提示输入密码后赋予hadoop用户管理权限</p>
+
+<pre><code>sudo adduser hadoop sudo
+</code></pre>
+
+<p>切换至hadoop用户</p>
+
+<pre><code>su hadoop
+</code></pre></li>
+
+<li><p>配置ssh免密登陆
+开始配置ssh之前，先确保三台机器都装了ssh。输入以下命令测试能否连接到本地，验证是否安装ssh。</p>
+
+<pre><code>ssh localhost
+</code></pre>
+
+<p>若不能，则安装open-server</p>
+
+<pre><code>sudo apt-get openssh-server
+</code></pre>
+
+<p>并生成ssh公钥。</p>
+
+<pre><code>ssh-keygen -t rsa -P &quot;&quot;
+</code></pre>
+
+<p>将公钥加入到已认证的key中</p>
+
+<pre><code>cat $HOME/.ssh/id_rsa.pub &gt;&gt; $HOME/.ssh/authorized_keys
+</code></pre>
+
+<p>在保证了三台主机电脑都能连接到本地localhost后，还需要让master主机免密码登录slave1和slave2主机。在master执行如下命令，将master的id_rsa.pub传送给两台slave主机。</p>
+
+<pre><code>scp ~/.ssh/id_rsa.pub hadoop@slave1:/home/hadoop/
+scp ~/.ssh/id_rsa.pub hadoop@slave2:/home/hadoop/
+</code></pre>
+
+<p>接着在slave1、slave2主机上将master的公钥加入各自的节点上,在slave1和slave2执行如下命令:</p>
+
+<pre><code>cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+rm ~/id_rsa.pub
+</code></pre>
+
+<p>在master主机上直接执行如下测试命令，即可让master主机免密码登录slave1、slave2主机。</p>
+
+<pre><code>ssh slave1
+ssh slave2
+</code></pre></li>
+</ol>
+
+<h2 id="三-jdk和hadoop安装配置">三、JDK和Hadoop安装配置</h2>
+
+<ol>
+<li><p>安装jdk
+执行安装jdk的操作</p>
+
+<pre><code>sudo apt-get install default-jdk
+</code></pre>
+
+<p>编辑~/.bashrc文件，添加如下内容：</p>
+
+<pre><code>export JAVA_HOME=/usr/lib/jvm/default-java
+</code></pre>
+
+<p>接着让环境变量生效，执行如下代码</p>
+
+<pre><code>source ~/.bashrc
+</code></pre></li>
+
+<li><p>安装Hadoop，在master主机执行如下操作
+安装Hadoop的压缩包(可进入[<a href="http://mirrors.hust.edu.cn/apache/hadoop/common/]查看版本）">http://mirrors.hust.edu.cn/apache/hadoop/common/]查看版本）</a></p>
+
+<pre><code>sudo wget http://mirrors.hust.edu.cn/apache/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz
+</code></pre>
+
+<pre><code>sudo tar -zxf ~/hadoop-2.7.6.tar.gz -C /usr/local    # 解压到/usr/local中
+cd /usr/local/
+sudo mv ./hadoop-2.7.6/ ./hadoop            # 将文件夹名改为hadoop
+sudo chown -R hadoop ./hadoop       # 修改文件权限
+</code></pre>
+
+<p>编辑~/.bashrc文件，添加如下内容：</p>
+
+<pre><code>export HADOOP_HOME=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+</code></pre>
+
+<p>接着让环境变量生效，执行如下代码：</p>
+
+<pre><code>source ~/.bashrc
+</code></pre></li>
+
+<li><p>Hadoop集群配置
+修改slaves文件（这些配置文件都位于/usr/local/hadoop/etc/hadoop目录下），加入如下内容，让master节点主机仅作为NameNode使用，删除其中的localhost：</p>
+
+<pre><code>slave1
+slave2
+</code></pre>
+
+<p>修改core-site.xml</p>
+
+<pre><code>  &lt;configuration&gt;
+      &lt;property&gt;
+          &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+          &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;
+          &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;
+      &lt;/property&gt;
+      &lt;property&gt;
+          &lt;name&gt;fs.defaultFS&lt;/name&gt;
+          &lt;value&gt;hdfs://master:9000&lt;/value&gt;
+      &lt;/property&gt;
+  &lt;/configuration&gt;
+</code></pre></li>
+</ol>
+
+<p>修改hadoop-env.sh，加入Java的安装地址
+<img src="https://img-blog.csdnimg.cn/20190225100112911.png" alt="在这里插入图片描述" /></p>
+
+<p>修改hdfs-site.xml：</p>
+
+<pre><code>```
+    &lt;configuration&gt;
+        &lt;property&gt;
+            &lt;name&gt;dfs.replication&lt;/name&gt;
+            &lt;value&gt;3&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/configuration&gt;
+```
+</code></pre>
+
+<p>修改mapred-site.xml(复制mapred-site.xml.template,再修改文件名)</p>
+
+<pre><code>```
+sudo mv ./mapred-site.xml.template ./mapred-site.xml
+```
+
+```
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+```
+</code></pre>
+
+<p>修改yarn-site.xml</p>
+
+<pre><code> &lt;configuration&gt;
+  &lt;!-- Site specific YARN configuration properties --&gt;
+      &lt;property&gt;
+          &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+          &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+      &lt;/property&gt;
+      &lt;property&gt;
+          &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+          &lt;value&gt;master&lt;/value&gt;
+      &lt;/property&gt;
+  &lt;/configuration&gt;
+</code></pre>
+
+<p>配置好后，将 master 上的 /usr/local/Hadoop 文件夹复制到各个节点上。速度较慢，也可直接在slave上重新配置</p>
+
+<pre><code>cd /usr/local/
+tar -zcf ~/hadoop.master.tar.gz ./hadoop
+cd ~
+scp ./hadoop.master.tar.gz slave1:/home/hadoop
+scp ./hadoop.master.tar.gz slave2:/home/hadoop
+</code></pre>
+
+<p>在slave1,slave2节点上执行：</p>
+
+<pre><code>sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local
+sudo chown -R hadoop /usr/local/hadoop
+</code></pre>
+
+<ol>
+<li>启动Hadoop集群</li>
+</ol>
+
+<p>在master主机上执行如下命令：</p>
+
+<pre><code>cd /usr/local/hadoop
+bin/hdfs namenode -format
+sbin/start-all.sh
+</code></pre>
+
+<p>运行后，在master，slave1,slave2运行jps命令，查看：</p>
+
+<pre><code>jps
+</code></pre>
+
+<p>看到如下相似内容
+<img src="https://img-blog.csdnimg.cn/20190225100312918.png" alt="在这里插入图片描述" />
+搭建完成~</p>
+
+<p>参考文章：
+1.<a href="http://dblab.xmu.edu.cn/blog/1177-2/#more-1177">http://dblab.xmu.edu.cn/blog/1177-2/#more-1177</a>
+2.<a href="https://blog.csdn.net/gakki_smile/article/details/77198146">https://blog.csdn.net/gakki_smile/article/details/77198146</a>
+3.<a href="https://www.cnblogs.com/caiyisen/p/7373512.html">https://www.cnblogs.com/caiyisen/p/7373512.html</a></p>
 
 
                 
@@ -233,13 +478,13 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/03/22/sparkadvanced/" data-toggle="tooltip" data-placement="top" title="Spark编程进阶">&larr;
+                        <a href="/2019/03/24/spark_decisiontree/" data-toggle="tooltip" data-placement="top" title="SparkMLlib之决策树二元分类">&larr;
                             Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/04/01/build_hadoop/" data-toggle="tooltip" data-placement="top" title="云服务器Ubuntu系统搭建Hadoop集群">Next
+                        <a href="/2019/04/01/java_diffrence/" data-toggle="tooltip" data-placement="top" title="Java中组合、继承和代理的不同之处">Next
                             Post &rarr;</a>
                     </li>
                     

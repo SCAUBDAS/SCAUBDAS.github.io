@@ -18,9 +18,9 @@
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="Java中组合、继承和代理的不同之处" />
+    <meta property="og:title" content="Java中组合、继承和代理的不同之处" />
+    <meta property="twitter:title" content="Java中组合、继承和代理的不同之处" />
     
 
     
@@ -37,9 +37,9 @@
     <meta name="keyword"  content="SCAUBDAS, SCAUBDAS的博客, SCAUBDAS Blog, 博客, 互联网, Web, 大数据">
     <link rel="shortcut icon" href="/img/logo.jpg">
 
-    <title>SCAUBDAS的博客 | SCAUBDAS Blog</title>
+    <title>Java中组合、继承和代理的不同之处-SCAUBDAS的博客 | SCAUBDAS Blog</title>
 
-    <link rel="canonical" href="/top/books/">
+    <link rel="canonical" href="/2019/04/01/java_diffrence/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -150,14 +150,35 @@
 
 
 
-<header class="intro-header" style="background-image: url('/img/home-bg.png')">
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('https://raw.githubusercontent.com/CTubby/images/master/images-bg/bg-2019-03.png')
+    }
+</style>
+<header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>SCAUBDAS Blog </h1>
-                    
-		    <span class="subheading">路漫漫其修远兮,吾将上下而求索。</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/java" title="JAVA">
+                            JAVA
+                        </a>
+                        
+                    </div>
+                    <h1>Java中组合、继承和代理的不同之处</h1>
+                    <h2 class="subheading">JAVA学习</h2>
+                    <span class="meta">
+			Posted by 
+			
+			    王巍杰
+			 
+			on 
+			Monday, April 1, 2019
+                        
+                    </span>
                 </div>
             </div>
         </div>
@@ -177,11 +198,185 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-         	
                 
-<div id="comment"></div>
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                
+                
+                <p>最近在看《Java编程思想》这一本书，看到第７章复用类，学习的时候查了查网上的资料，感觉都说得不是很清楚，就来说说我的看法。
+复用类即实现代码复用的类，Java中大概分为三种：组合、继承、代理（实际Java没有提供对代理的直接支持）。</p>
+
+<ol>
+<li>组合：要使用A类的方法，为了不改变其原有结构，在一个新的类B中创建A类的一个对象a，以创建的这个对象a来调用A类的方法。</li>
+<li>继承：要使用A类的方法，不改变其原有结构，创建一个类B，继承自A，这个类B拥有A类的所有方法和属性，并能自身做扩展,拥有A所没有的属性和方法。</li>
+<li>代理：要使用A类的方法，不改变其原有结构，在一个新的类B中创建A的对象a，并且在B中创建方法fb，方法内部是a调用A类的方法，但是使用时是B的对象调用其自身方法fb。</li>
+</ol>
+
+<p>下面来看例子()：
+ 1.组合</p>
+
+<pre><code class="language-java">//组合
+//：multiplexing/Getresult.java
+class Calculater {
+    Calculater() {
+        System.out.println(&quot;use composition&quot;);
+    }
+    int Sum() {
+        int res = 0; 
+        for (int i = 0; i &lt; 1000;i++) {
+            res += i;
+        }
+        return res;
+    }
+}
+
+public class Getresult {
+    private Calculater cal;
+    public Getresult(){
+        cal = new Calculater();
+    }
+    public static void main(String[] args) {
+        Getresult result = new Getresult();
+        System.out.println(result.cal.Sum());
+    }
+}/*output
+use composition
+499500
+*/
+</code></pre>
+
+<p>2.继承</p>
+
+<pre><code class="language-java">//：multiplexing/GetresultInheritance.java
+public class GetresultInheritance extends Calculater{
+    GetresultInheritance(){
+        System.out.println(&quot;use inheritance&quot;);
+    }
+    public static void main(String[] args) {
+        GetresultInheritance result = new GetresultInheritance();
+        System.out.println(result.Sum());
+    }
+}
+/*output
+use inheritance
+499500
+*/
+</code></pre>
+
+<p>3.代理</p>
+
+<pre><code class="language-java">//:multiplexing/GetResultProxy.java
+public class GetResultProxy {
+    private Calculater cal = new Calculater();
+    public long GetSum(){
+        System.out.println(&quot;use proxy&quot;);
+        return cal.Sum();
+    }
+    public static void main(String[] args) {
+        GetResultProxy result = new GetResultProxy();
+        System.out.println(result.GetSum());
+    }
+}
+/*output
+use proxy
+499500
+*/
+</code></pre>
+
+<p>那么三种复用方式的访问权限又是怎样的呢？组合是调用类</p>
+
+<p>1.组合</p>
+
+<pre><code class="language-java">public class Getresult {
+    private Calculater cal;
+    public Getresult(){
+        cal = new Calculater();
+    }
+    public static void main(String[] args) {
+        Getresult result = new Getresult();
+        System.out.println(&quot;use compositon&quot;);
+        result.cal.B();
+        result.cal.C();
+    }
+}
+
+class Calculater {
+    Calculater() {
+    }
+    private void A () {
+        System.out.println(&quot;private method&quot;);
+    }
+    protected void B() {
+        System.out.println(&quot;protected method&quot;);
+    }
+    public void C() {
+        System.out.println(&quot;public method&quot;);
+    }
+}/*output
+use compositon
+protected method
+public method
+*/
+</code></pre>
+
+<p>2.继承</p>
+
+<pre><code class="language-java">public class GetresultInheritance extends Calculater{
+    GetresultInheritance(){
+        System.out.println(&quot;use inheritance&quot;);
+    }
+    public static void main(String[] args) {
+        GetresultInheritance result = new GetresultInheritance();
+        result.B();
+        result.C();
+    }
+}/*output
+use inheritance
+protected method
+public method
+*/
+</code></pre>
+
+<p>3.代理</p>
+
+<pre><code class="language-java">public class GetResultProxy {
+    private Calculater cal = new Calculater();
+    public void B() {
+        cal.B();
+    }
+    public void C() {
+        cal.C();
+    }
+    
+    public static void main(String[] args) {
+        GetResultProxy result = new GetResultProxy();
+        System.out.println(&quot;use proxy&quot;);
+        result.B();
+        result.C();
+    }
+}/*output
+use proxy
+protected method
+public method
+*/
+</code></pre>
+
+<p>可以看到，实际上三种方式都只能访问protected和public方法，调用private方法则会报错。虽然组合使用的是该类的成员对象调用方法，但是Java的private成员方法只支持包含该方法的类内部访问。</p>
 
 
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/04/01/build_hadoop/" data-toggle="tooltip" data-placement="top" title="云服务器Ubuntu系统搭建Hadoop集群">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
 
             </div>
             
@@ -200,25 +395,25 @@
                         
                         
                         <a href="/tags/java" title="JAVA">
-                        JAVA
+                            JAVA
                         </a>
                         
                         
                         
                         <a href="/tags/spark" title="Spark">
-                        Spark
+                            Spark
                         </a>
                         
                         
                         
                         <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
-                        机器学习
+                            机器学习
                         </a>
                         
                         
                         
                         <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
-                        算法
+                            算法
                         </a>
                         
                         

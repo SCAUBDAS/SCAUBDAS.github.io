@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta name="google-site-verification" content="9vIieCe-Qpd78QOmBl63rGtIVbhY6sYyuxX3j8XWBA4" />
+    <meta name="baidu-site-verification" content="LRrmH41lz7" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="SCAUBDAS Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://sicau-bdas.top/img/home-bg.png">
+    <meta property="twitter:image" content="https://sicau-bdas.top/img/home-bg.png" />
+    
+
+    
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
+    
+
+    
+    <meta name="description" content="SCAUBDAS，程序员 数据爱好者 | 这里是 SCAUBDAS 的博客, 希冀在数据的道路上结伴同行。">
+    <meta property="og:description" content="SCAUBDAS，程序员 数据爱好者 | 这里是 SCAUBDAS 的博客, 希冀在数据的道路上结伴同行。" />
+    <meta property="twitter:description" content="SCAUBDAS，程序员 数据爱好者 | 这里是 SCAUBDAS 的博客, 希冀在数据的道路上结伴同行。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="SCAUBDAS, SCAUBDAS的网络日志, SCAUBDAS的博客, SCAUBDAS Blog, 博客, 个人网站, 互联网, Web, 大数据">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>SCAUBDAS的博客 | SCAUBDAS Blog</title>
+
+    <link rel="canonical" href="/post/hadoop/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8ubuntu%E7%B3%BB%E7%BB%9F%E6%90%AD%E5%BB%BAhadoop%E9%9B%86%E7%BE%A4/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SCAUBDAS Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">Tech</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/home-bg.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+			Posted by 
+			
+		            SCAUBDAS Blog
+			 
+			on 
+			Monday, January 1, 0001
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#一-节点环境介绍">一、节点环境介绍</a></li>
+<li><a href="#二-前期准备">二、前期准备</a></li>
+<li><a href="#三-jdk和hadoop安装配置">三、JDK和Hadoop安装配置</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="一-节点环境介绍">一、节点环境介绍</h2>
+
+<p><strong>服务器</strong>：2台腾讯云服务器，一台百度云服务器
+<strong>操作系统</strong>： Ubuntu 16.04.4 LTS
+<strong>Hadoop版本</strong>：hadoop-2.7.6
+<strong>Java版本</strong>：1.8.0_191</p>
+
+<h2 id="二-前期准备">二、前期准备</h2>
+
+<ol>
+<li><strong>为了更好的在Shell中区分三台主机，修改其显示的主机名，执行如下命令</strong></li>
+</ol>
+
+<pre><code>sudo vim /etc/hostname
+</code></pre>
+
+<p>在master的/etc/hostname中添加如下配置：</p>
+
+<pre><code>master
+</code></pre>
+
+<p>slave1的/etc/hostname中添加如下配置：</p>
+
+<pre><code>slave1
+</code></pre>
+
+<p>同理slave2</p>
+
+<pre><code>slave2
+</code></pre>
+
+<p>重启三台电脑，发现机器名已经变化
+<img src="https://img-blog.csdnimg.cn/20190224145521794.png" alt="在这里插入图片描述" />
+ 2. 在三台机器的/etc/hosts文件中,添加如下配置</p>
+
+<pre><code>ip1 master
+ip2 slave1
+ip3 slave2
+</code></pre>
+
+<p>注意：如果是在master上操作的话ip1 必须是master 的内网IP 同理slaves上也是一样，其他的要用外网IP。</p>
+
+<p>查看内网地址</p>
+
+<pre><code>ifconfig
+</code></pre>
+
+<p><img src="https://img-blog.csdnimg.cn/20190224151054741.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzg2MDgwMA==,size_16,color_FFFFFF,t_70" alt="" /></p>
+
+<ol>
+<li><p>建立Hadoop运行账号</p>
+
+<pre><code>sudo adduser hadoop
+</code></pre>
+
+<p>按提示输入密码后赋予hadoop用户管理权限</p>
+
+<pre><code>sudo adduser hadoop sudo
+</code></pre>
+
+<p>切换至hadoop用户</p>
+
+<pre><code>su hadoop
+</code></pre></li>
+
+<li><p>配置ssh免密登陆
+开始配置ssh之前，先确保三台机器都装了ssh。输入以下命令测试能否连接到本地，验证是否安装ssh。</p>
+
+<pre><code>ssh localhost
+</code></pre>
+
+<p>若不能，则安装open-server</p>
+
+<pre><code>sudo apt-get openssh-server
+</code></pre>
+
+<p>并生成ssh公钥。</p>
+
+<pre><code>ssh-keygen -t rsa -P &quot;&quot;
+</code></pre>
+
+<p>将公钥加入到已认证的key中</p>
+
+<pre><code>cat $HOME/.ssh/id_rsa.pub &gt;&gt; $HOME/.ssh/authorized_keys
+</code></pre>
+
+<p>在保证了三台主机电脑都能连接到本地localhost后，还需要让master主机免密码登录slave1和slave2主机。在master执行如下命令，将master的id_rsa.pub传送给两台slave主机。</p>
+
+<pre><code>scp ~/.ssh/id_rsa.pub hadoop@slave1:/home/hadoop/
+scp ~/.ssh/id_rsa.pub hadoop@slave2:/home/hadoop/
+</code></pre>
+
+<p>接着在slave1、slave2主机上将master的公钥加入各自的节点上,在slave1和slave2执行如下命令:</p>
+
+<pre><code>cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+rm ~/id_rsa.pub
+</code></pre>
+
+<p>在master主机上直接执行如下测试命令，即可让master主机免密码登录slave1、slave2主机。</p>
+
+<pre><code>ssh slave1
+ssh slave2
+</code></pre></li>
+</ol>
+
+<h2 id="三-jdk和hadoop安装配置">三、JDK和Hadoop安装配置</h2>
+
+<ol>
+<li><p>安装jdk
+执行安装jdk的操作</p>
+
+<pre><code>sudo apt-get install default-jdk
+</code></pre>
+
+<p>编辑~/.bashrc文件，添加如下内容：</p>
+
+<pre><code>export JAVA_HOME=/usr/lib/jvm/default-java
+</code></pre>
+
+<p>接着让环境变量生效，执行如下代码</p>
+
+<pre><code>source ~/.bashrc
+</code></pre></li>
+
+<li><p>安装Hadoop，在master主机执行如下操作
+安装Hadoop的压缩包(可进入[<a href="http://mirrors.hust.edu.cn/apache/hadoop/common/]查看版本）">http://mirrors.hust.edu.cn/apache/hadoop/common/]查看版本）</a></p>
+
+<pre><code>sudo wget http://mirrors.hust.edu.cn/apache/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz
+</code></pre>
+
+<pre><code>sudo tar -zxf ~/hadoop-2.7.6.tar.gz -C /usr/local    # 解压到/usr/local中
+cd /usr/local/
+sudo mv ./hadoop-2.7.6/ ./hadoop            # 将文件夹名改为hadoop
+sudo chown -R hadoop ./hadoop       # 修改文件权限
+</code></pre>
+
+<p>编辑~/.bashrc文件，添加如下内容：</p>
+
+<pre><code>export HADOOP_HOME=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+</code></pre>
+
+<p>接着让环境变量生效，执行如下代码：</p>
+
+<pre><code>source ~/.bashrc
+</code></pre></li>
+
+<li><p>Hadoop集群配置
+修改slaves文件（这些配置文件都位于/usr/local/hadoop/etc/hadoop目录下），加入如下内容，让master节点主机仅作为NameNode使用，删除其中的localhost：</p>
+
+<pre><code>slave1
+slave2
+</code></pre>
+
+<p>修改core-site.xml</p>
+
+<pre><code>  &lt;configuration&gt;
+      &lt;property&gt;
+          &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+          &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;
+          &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;
+      &lt;/property&gt;
+      &lt;property&gt;
+          &lt;name&gt;fs.defaultFS&lt;/name&gt;
+          &lt;value&gt;hdfs://master:9000&lt;/value&gt;
+      &lt;/property&gt;
+  &lt;/configuration&gt;
+</code></pre></li>
+</ol>
+
+<p>修改hadoop-env.sh，加入Java的安装地址
+<img src="https://img-blog.csdnimg.cn/20190225100112911.png" alt="在这里插入图片描述" /></p>
+
+<p>修改hdfs-site.xml：</p>
+
+<pre><code>```
+    &lt;configuration&gt;
+        &lt;property&gt;
+            &lt;name&gt;dfs.replication&lt;/name&gt;
+            &lt;value&gt;3&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/configuration&gt;
+```
+</code></pre>
+
+<p>修改mapred-site.xml(复制mapred-site.xml.template,再修改文件名)</p>
+
+<pre><code>```
+sudo mv ./mapred-site.xml.template ./mapred-site.xml
+```
+
+```
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+```
+</code></pre>
+
+<p>修改yarn-site.xml</p>
+
+<pre><code> &lt;configuration&gt;
+  &lt;!-- Site specific YARN configuration properties --&gt;
+      &lt;property&gt;
+          &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+          &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+      &lt;/property&gt;
+      &lt;property&gt;
+          &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+          &lt;value&gt;master&lt;/value&gt;
+      &lt;/property&gt;
+  &lt;/configuration&gt;
+</code></pre>
+
+<p>配置好后，将 master 上的 /usr/local/Hadoop 文件夹复制到各个节点上。速度较慢，也可直接在slave上重新配置</p>
+
+<pre><code>cd /usr/local/
+tar -zcf ~/hadoop.master.tar.gz ./hadoop
+cd ~
+scp ./hadoop.master.tar.gz slave1:/home/hadoop
+scp ./hadoop.master.tar.gz slave2:/home/hadoop
+</code></pre>
+
+<p>在slave1,slave2节点上执行：</p>
+
+<pre><code>sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local
+sudo chown -R hadoop /usr/local/hadoop
+</code></pre>
+
+<ol>
+<li>启动Hadoop集群</li>
+</ol>
+
+<p>在master主机上执行如下命令：</p>
+
+<pre><code>cd /usr/local/hadoop
+bin/hdfs namenode -format
+sbin/start-all.sh
+</code></pre>
+
+<p>运行后，在master，slave1,slave2运行jps命令，查看：</p>
+
+<pre><code>jps
+</code></pre>
+
+<p>看到如下相似内容
+<img src="https://img-blog.csdnimg.cn/20190225100312918.png" alt="在这里插入图片描述" />
+搭建完成~</p>
+
+<p>参考文章：
+1.<a href="http://dblab.xmu.edu.cn/blog/1177-2/#more-1177">http://dblab.xmu.edu.cn/blog/1177-2/#more-1177</a>
+2.<a href="https://blog.csdn.net/gakki_smile/article/details/77198146">https://blog.csdn.net/gakki_smile/article/details/77198146</a>
+3.<a href="https://www.cnblogs.com/caiyisen/p/7373512.html">https://www.cnblogs.com/caiyisen/p/7373512.html</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/java/java%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF%E5%92%8C%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB/" data-toggle="tooltip" data-placement="top" title="">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/03/22/decisiontree/" data-toggle="tooltip" data-placement="top" title="基于信息熵的决策树构建">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/spark" title="Spark">
+                            Spark
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" title="机器学习">
+                            机器学习
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/%E7%AE%97%E6%B3%95" title="算法">
+                            算法
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:SCAUBDAS.xue@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    <li>
+                        <a target="_blank" href="/img/wechat_qrcode.jpg">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/CSCAUBDAS">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; SCAUBDAS Blog 2019
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+       bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      }
+      else{
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-136755871-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
+</html>
